@@ -167,8 +167,8 @@ export class FindWidget extends Widget implements IOverlayWidget, IVerticalSashL
 		private readonly _hoverService: IHoverService,
 		private readonly _findWidgetSearchHistory: IHistory<string> | undefined,
 		private readonly _replaceWidgetHistory: IHistory<string> | undefined,
-		private readonly _configurationService: IConfigurationService,
-		private readonly _accessibilityService: IAccessibilityService,
+		_configurationService: IConfigurationService,
+		_accessibilityService: IAccessibilityService,
 	) {
 		super();
 		this._codeEditor = codeEditor;
