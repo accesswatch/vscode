@@ -70,3 +70,6 @@ Users want a faster ergonomic pattern (tap vs double-tap) for related commands. 
 
 ## Labels
 `experimental`, `feature-request`, `keybindings`, `accessibility`, `area-workbench`
+
+---
+Related issue: https://github.com/microsoft/vscode/issues/292578
