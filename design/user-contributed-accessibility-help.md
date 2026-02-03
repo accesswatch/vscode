@@ -449,6 +449,12 @@ User content can include keybinding placeholders that get resolved at runtime:
 
 ---
 
+## Issue Tracking
+
+**GitHub Issue:** https://github.com/microsoft/vscode/issues/292587
+
+---
+
 ## Related Work
 - [Experimental Keybinding Announcements](./experimental-keybinding-announcements.md) - ARIA announcement system for keybindings
 - Current `IAccessibleViewService` and `AccessibleViewRegistry` implementations
