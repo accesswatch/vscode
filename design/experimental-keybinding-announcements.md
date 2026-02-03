@@ -74,3 +74,6 @@ Verbosity-aware (optional):
 
 ## Labels
 `experimental`, `feature-request`, `accessibility`, `keybindings`, `area-workbench`
+
+---
+Related issue: https://github.com/microsoft/vscode/issues/292577
