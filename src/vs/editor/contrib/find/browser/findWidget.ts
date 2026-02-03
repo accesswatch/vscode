@@ -146,6 +146,7 @@ export class FindWidget extends Widget implements IOverlayWidget, IVerticalSashL
 	private _isReplaceVisible: boolean;
 	private _ignoreChangeEvent: boolean;
 	private _accessibilityHelpHintAnnounced: boolean;
+	private _lastFocusedInputWasReplace: boolean = false;
 
 	private readonly _findFocusTracker: dom.IFocusTracker;
 	private readonly _findInputFocused: IContextKey<boolean>;
@@ -240,6 +241,7 @@ export class FindWidget extends Widget implements IOverlayWidget, IVerticalSashL
 		this._findFocusTracker = this._register(dom.trackFocus(this._findInput.inputBox.inputElement));
 		this._register(this._findFocusTracker.onDidFocus(() => {
 			this._findInputFocused.set(true);
+			this._lastFocusedInputWasReplace = false;
 			this._updateSearchScope();
 		}));
 		this._register(this._findFocusTracker.onDidBlur(() => {
@@ -250,6 +252,7 @@ export class FindWidget extends Widget implements IOverlayWidget, IVerticalSashL
 		this._replaceFocusTracker = this._register(dom.trackFocus(this._replaceInput.inputBox.inputElement));
 		this._register(this._replaceFocusTracker.onDidFocus(() => {
 			this._replaceInputFocused.set(true);
+			this._lastFocusedInputWasReplace = true;
 			this._updateSearchScope();
 		}));
 		this._register(this._replaceFocusTracker.onDidBlur(() => {
@@ -290,6 +293,15 @@ export class FindWidget extends Widget implements IOverlayWidget, IVerticalSashL
 
 	public getDomNode(): HTMLElement {
 		return this._domNode;
+	}
+
+	/**
+	 * Returns whether the Replace input was the last focused input in the find widget.
+	 * This persists even after focus leaves the widget, allowing external code to know
+	 * which input to restore focus to.
+	 */
+	public get lastFocusedInputWasReplace(): boolean {
+		return this._lastFocusedInputWasReplace;
 	}
 
 	public getPosition(): IOverlayWidgetPosition | null {
