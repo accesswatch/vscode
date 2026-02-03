@@ -1,0 +1,180 @@
+<h1
+id="accessibility-announcement-for-the-blind-and-low-vision-community">Accessibility
+Announcement for the Blind and Low Vision Community</h1>
+<p><strong>Date:</strong> February 2026 <strong>Status:</strong> Under
+Final Review — Awaiting Merge to Public Release</p>
+<hr />
+<h2 id="summary">Summary</h2>
+<p>We are pleased to share details about upcoming accessibility
+improvements in Visual Studio Code. These changes are currently under
+final review by the VS Code team and are expected to be available in a
+forthcoming release.</p>
+<hr />
+<h2 id="whats-coming">What’s Coming</h2>
+<h3
+id="comprehensive-accessibility-help-for-all-find-and-filter-dialogs">1.
+Comprehensive Accessibility Help for All Find and Filter Dialogs</h3>
+<p><strong>The Problem We’re Solving:</strong> Until now, when screen
+reader users opened the Find dialog (Ctrl+F) or other filter inputs
+throughout VS Code, there was no easy way to learn how these dialogs
+worked without consulting external documentation.</p>
+<p><strong>The Solution:</strong> You can now press
+<strong>Alt+F1</strong> when focused in any find or filter input to
+receive complete, context-specific help spoken by your screen reader.
+This works in:</p>
+<ul>
+<li><strong>Editor Find/Replace</strong> (Ctrl+F, Ctrl+H)</li>
+<li><strong>Terminal Find</strong> (Ctrl+F in the terminal)</li>
+<li><strong>Browser/Webview Find</strong> (Ctrl+F in embedded
+content)</li>
+<li><strong>Search Across Files</strong> (Ctrl+Shift+F)</li>
+<li><strong>Output Panel Filter</strong></li>
+<li><strong>Problems Panel Filter</strong></li>
+<li><strong>Debug Console Filter</strong></li>
+<li><strong>Comments Panel Filter</strong></li>
+</ul>
+<p><strong>What You’ll Hear:</strong> When you press Alt+F1, you receive
+a complete spoken guide including: - What dialog you’re in and what it
+does - Your current search status (what you’re searching for, how many
+matches, your position) - Keyboard navigation instructions specific to
+your current focus - Available options and how to use them - Relevant
+settings you can customize - How focus behaves when you navigate between
+matches - How to close the dialog and where focus returns</p>
+<h3 id="discoverability-hints">2. Discoverability Hints</h3>
+<p><strong>The Problem:</strong> The Alt+F1 help feature is only useful
+if users know it exists.</p>
+<p><strong>The Solution:</strong> When you first focus in a find or
+filter input, your screen reader will announce: <strong>“Press Alt+F1
+for accessibility help.”</strong> This hint appears once per session to
+guide you to the help system without being repetitive.</p>
+<p>You can disable this hint by setting
+<code>accessibility.verbosity.find</code> to <code>false</code> in
+Settings once you’re familiar with the feature.</p>
+<h2
+id="separate-fix-arrow-key-navigation-in-go-to-quick-input-dialogs">Separate
+Fix: Arrow Key Navigation in Go To / Quick Input Dialogs</h2>
+<p><strong>Status:</strong> Reviewed and Awaiting Merge</p>
+<p><strong>The Problem:</strong> In the Go To Line dialog (Ctrl+G) and
+other Quick Input dialogs, screen reader users were unable to use arrow
+keys to edit text within the input field. Arrow keys would navigate the
+list instead of moving the cursor within the text you were typing.</p>
+<p><strong>The Solution:</strong> Arrow key behavior has been corrected.
+When you’re editing text in a Quick Input dialog, left and right arrow
+keys now move the cursor within your text as expected. You can still
+navigate the results list using other standard methods.</p>
+<hr />
+<h2 id="when-will-these-be-available">When Will These Be Available?</h2>
+<p>These changes are currently: - <strong>Under final code
+review</strong> by the VS Code team - <strong>Awaiting merge</strong>
+into a public-facing branch - <strong>Expected</strong> in an upcoming
+VS Code release (version TBD)</p>
+<p>We will provide updates as these changes move through the release
+process.</p>
+<hr />
+<h2 id="how-to-test-once-released">How to Test (Once Released)</h2>
+<ol type="1">
+<li><strong>Update VS Code</strong> to the version containing these
+changes</li>
+<li><strong>Open any file</strong> and press <strong>Ctrl+F</strong> to
+open Find</li>
+<li><strong>Press Alt+F1</strong> to hear the accessibility help</li>
+<li><strong>Listen for</strong> the complete spoken guide about using
+Find</li>
+<li><strong>Press Escape</strong> to close the help and verify focus
+returns to Find</li>
+<li><strong>Try in other contexts:</strong> Terminal (Ctrl+`), Search
+(Ctrl+Shift+F), etc.</li>
+</ol>
+<hr />
+<h2 id="providing-feedback">Providing Feedback</h2>
+<p>Your feedback is invaluable. Once these features are released, please
+share your experience:</p>
+<ul>
+<li><strong>GitHub Issues:</strong>
+https://github.com/microsoft/vscode/issues</li>
+<li><strong>Use the “Accessibility” label</strong> when filing
+issues</li>
+<li><strong>Include your screen reader</strong> (NVDA, JAWS, Narrator,
+VoiceOver) and version</li>
+</ul>
+<hr />
+<h2 id="technical-details-for-interested-users">Technical Details for
+Interested Users</h2>
+<h3 id="settings">Settings</h3>
+<ul>
+<li><strong><code>accessibility.verbosity.find</code></strong> —
+Controls whether the “Press Alt+F1 for accessibility help” hint is
+announced (default: true)</li>
+</ul>
+<h3 id="contexts-where-altf1-help-is-available">Contexts Where Alt+F1
+Help Is Available</h3>
+<table>
+<thead>
+<tr>
+<th>Context</th>
+<th>How to Open</th>
+<th>Alt+F1 Help ID</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Editor Find</td>
+<td>Ctrl+F</td>
+<td>EditorFindHelp</td>
+</tr>
+<tr>
+<td>Editor Replace</td>
+<td>Ctrl+H</td>
+<td>EditorFindHelp</td>
+</tr>
+<tr>
+<td>Terminal Find</td>
+<td>Ctrl+F in terminal</td>
+<td>TerminalFindHelp</td>
+</tr>
+<tr>
+<td>Webview Find</td>
+<td>Ctrl+F in webview</td>
+<td>WebviewFindHelp</td>
+</tr>
+<tr>
+<td>Search Across Files</td>
+<td>Ctrl+Shift+F</td>
+<td>SearchHelp</td>
+</tr>
+<tr>
+<td>Output Filter</td>
+<td>Filter icon in Output</td>
+<td>OutputHelp</td>
+</tr>
+<tr>
+<td>Problems Filter</td>
+<td>Filter icon in Problems</td>
+<td>MarkersHelp</td>
+</tr>
+<tr>
+<td>Debug Console</td>
+<td>Filter in Debug Console</td>
+<td>DebugConsoleHelp</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="acknowledgments">Acknowledgments</h2>
+<p>These changes were developed collaboratively with members of the
+blindness community, including contributions from AccessWatch (Jeff
+Bishop — https://github.com/accesswatch) and BITS, with helpful guidance
+from the Visual Studio Code development team. Special appreciation to
+Ken Perry, Taylor Arndt, Michael Doise, Michael Babcock, and others
+within BITS whose mentorship, encouragement, and partnership have given
+purpose and drive to make a difference for all Visual Studio Code
+users.</p>
+<p>AccessWatch (Jeff Bishop) remains deeply committed to future projects
+— stay tuned for more contributions.</p>
+<p>We appreciate the community effort and ongoing support that made
+these improvements possible.</p>
+<hr />
+<p><strong>Questions?</strong> Please reach out through GitHub Issues or
+the VS Code accessibility community channels.</p>
+<p><em>This announcement will be updated as these changes progress
+through review and release.</em></p>
