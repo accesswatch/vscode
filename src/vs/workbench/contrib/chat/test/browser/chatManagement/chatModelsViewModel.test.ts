@@ -71,6 +71,11 @@ class MockLanguageModelsService implements ILanguageModelsService {
 		const metadata = this.models.get(modelIdentifier);
 		if (metadata) {
 			this.models.set(modelIdentifier, { ...metadata, isUserSelectable: showInModelPicker });
+			// Fire the vendor change event so refreshVendor runs, matching real service behaviour.
+			const vendor = this.vendors.find(v => (this.modelsByVendor.get(v.vendor) ?? []).includes(modelIdentifier));
+			if (vendor) {
+				this._onDidChangeLanguageModels.fire(vendor.vendor);
+			}
 		}
 	}
 
@@ -1113,6 +1118,48 @@ suite('ChatModelsViewModel', () => {
 			// Verify we can still get results (doFilter was called)
 			assert.ok(updatedProviderGroups.length > 0, 'Should still have provider groups after visibility change');
 		}
+	});
+
+	test('selectedEntry is preserved after toggleVisibility', async () => {
+		// Simulate the user navigating to a model entry (e.g. via arrow keys).
+		const entries = viewModel.viewModelEntries;
+		const modelEntry = entries.find(e => e.type === 'model') as ILanguageModelEntry;
+		assert.ok(modelEntry, 'Expected at least one model entry');
+		viewModel.selectedEntry = modelEntry;
+
+		// Toggle visibility (as pressing Enter on the row would do).
+		// This causes updateModelPickerPreference -> onDidChangeLanguageModels ->
+		// refreshVendor -> doFilter, which rebuilds viewModelEntries with new ids.
+		viewModel.toggleVisibility(modelEntry);
+
+		// selectedEntry must survive the full rebuild so the widget can restore focus.
+		assert.ok(viewModel.selectedEntry, 'selectedEntry should not be cleared after toggleVisibility');
+		assert.strictEqual(
+			(viewModel.selectedEntry as ILanguageModelEntry).model.identifier,
+			modelEntry.model.identifier,
+			'selectedEntry should still point to the toggled model after the visibility change'
+		);
+	});
+
+	test('selectedEntry is preserved after toggling visibility back', async () => {
+		const entries = viewModel.viewModelEntries;
+		const modelEntry = entries.find(e => e.type === 'model') as ILanguageModelEntry;
+		assert.ok(modelEntry);
+		viewModel.selectedEntry = modelEntry;
+		const identifier = modelEntry.model.identifier;
+
+		// Toggle twice — each toggle triggers a full rebuild via the service event.
+		viewModel.toggleVisibility(modelEntry);
+		const afterFirst = viewModel.selectedEntry as ILanguageModelEntry | undefined;
+		assert.ok(afterFirst, 'selectedEntry should survive the first toggle');
+
+		viewModel.toggleVisibility(afterFirst!);
+		assert.ok(viewModel.selectedEntry, 'selectedEntry should survive the second toggle');
+		assert.strictEqual(
+			(viewModel.selectedEntry as ILanguageModelEntry).model.identifier,
+			identifier,
+			'selectedEntry should still point to the same model after two visibility toggles'
+		);
 	});
 
 });

@@ -157,7 +157,15 @@ export class ChatModelsViewModel extends Disposable {
 	private splice(at: number, removed: number, added: IViewModelEntry[]): void {
 		this._viewModelEntries.splice(at, removed, ...added);
 		if (this.selectedEntry) {
-			this.selectedEntry = this._viewModelEntries.find(entry => entry.id === this.selectedEntry?.id);
+			const previousSelected = this.selectedEntry;
+			this.selectedEntry = this._viewModelEntries.find(entry => entry.id === previousSelected.id);
+			// If the exact id match fails (e.g., because a model entry's id changed when
+			// its visibility was toggled), fall back to matching by the stable model identifier.
+			if (!this.selectedEntry && previousSelected.type === 'model') {
+				this.selectedEntry = this._viewModelEntries.find(
+					entry => entry.type === 'model' && entry.model.identifier === previousSelected.model.identifier
+				);
+			}
 		}
 		this._onDidChange.fire({ at, removed, added });
 	}
